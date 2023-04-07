@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:todo_fir/Modules/addTask/addTask.dart';
 import 'package:todo_fir/Modules/allUsers/allUser.dart';
+import 'package:todo_fir/Modules/profile/profile.dart';
 
 import '../Shared/Components/component.dart';
 
@@ -34,7 +35,7 @@ class DrawerWidget extends StatelessWidget {
         _listTiles(
             label: 'My account',
             fct: () {
-              // _navigateToProfileScreen(context);
+              _navigateToProfileScreen(context);
             },
             icon: Icons.settings_outlined),
         _listTiles(
@@ -62,37 +63,26 @@ class DrawerWidget extends StatelessWidget {
     ));
   }
 
-  // void _navigateToProfileScreen(context) {
-  //   final FirebaseAuth _auth = FirebaseAuth.instance;
-  //   final User? user = _auth.currentUser;
-  //   final uid = user!.uid;
-  //   Navigator.pushReplacement(
-  //     context,
-  //     MaterialPageRoute(
-  //       builder: (context) => ProfileScreen(
-  //         userID: uid,
-  //       ),
-  //     ),
-  //   );
-  // }
-
-  void _navigateToAllUsersScreen(context) {
+  void _navigateToProfileScreen(context) {
+    // final FirebaseAuth _auth = FirebaseAuth.instance;
+    // final User? user = _auth.currentUser;
+    // final uid = user!.uid;
     // Navigator.pushReplacement(
     //   context,
     //   MaterialPageRoute(
-    //     builder: (context) => AllUsers(),
+    //     builder: (context) => ProfileScreen(
+    //       userID: uid,
+    //     ),
     //   ),
     // );
+    navigatAndReturn(context: context, page: Profile());
+  }
+
+  void _navigateToAllUsersScreen(context) {
     navigatAndReturn(context: context, page: AllUsers());
   }
 
   void _navigateToAddTaskScreen(context) {
-    // Navigator.pushReplacement(
-    //   context,
-    //   MaterialPageRoute(
-    //     builder: (context) => AddTask(),
-    //   ),
-    // );
     navigatAndReturn(context: context, page: AddTask());
   }
 
