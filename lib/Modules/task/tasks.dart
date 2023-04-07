@@ -180,7 +180,7 @@ void showTaskCategoryDialog(context, size) {
                     onTap: () {
                       print(
                           'taskCategoryList[index] ${taskCategoryList[index]}');
-                      HomeCubit.get(context).changeIndexcategory(index);
+                      HomeCubit.get(context).changecategoryController(index);
                       // setState(() {
                       //   taksCategory = Constants.taskCategoryList[index];
                       // });

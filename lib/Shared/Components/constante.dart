@@ -7,3 +7,10 @@ List<String> taskCategoryList = [
   'Design',
   'Accounting',
 ];
+List<String> departementList = [
+  'Media',
+  'Programming',
+  'Logistique',
+  'Design',
+  'Media',
+];

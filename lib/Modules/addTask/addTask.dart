@@ -7,7 +7,7 @@ import '../cubit/home_cubit.dart';
 import '../task/tasks.dart';
 
 class AddTask extends StatelessWidget {
-  final categoryController = TextEditingController();
+  // final categoryController = TextEditingController();
   final titleController = TextEditingController();
   final descriptionController = TextEditingController();
   // deadlineController raho fl CubitHome
@@ -40,13 +40,11 @@ class AddTask extends StatelessWidget {
                       height: 10,
                     ),
                     defaultForm(
-                      hintText: taskCategoryList[
-                          HomeCubit.get(context).indexcategory],
                       readOnly: true,
                       onTap: () {
                         showTaskCategoryDialog(context, size);
                       },
-                      controller: categoryController,
+                      controller: HomeCubit.get(context).categoryController,
                       textInputAction: TextInputAction.next,
                       validator: () {},
                     ),

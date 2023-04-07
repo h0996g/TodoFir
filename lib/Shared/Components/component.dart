@@ -11,7 +11,7 @@ Widget defaultForm(
         String? label,
         String? hintText,
         int? maxLength,
-        int? maxLines,
+        int maxLines = 1,
         TextInputType? type,
         required Function? validator,
         Function()? onTap,

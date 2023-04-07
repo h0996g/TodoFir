@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todo_fir/Modules/Auth/register/register.dart';
 import 'package:todo_fir/Modules/cubit/home_cubit.dart';
 import 'package:todo_fir/Modules/task/tasks.dart';
 
