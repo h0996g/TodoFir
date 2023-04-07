@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:todo_fir/Modules/login/cubit/login_cubit.dart';
-import 'package:todo_fir/Modules/login/login.dart';
+import 'package:todo_fir/Modules/cubit/home_cubit.dart';
+import 'package:todo_fir/Modules/task/tasks.dart';
+
+import 'Modules/Auth/login/cubit/login_cubit.dart';
+import 'Modules/Auth/login/login.dart';
+import 'Modules/Auth/register/cubit/register_cubit.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,9 +19,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-        providers: [BlocProvider(create: (context) => LoginCubit())],
+        providers: [
+          BlocProvider(create: (context) => LoginCubit()),
+          BlocProvider(create: (context) => RegisterCubit()),
+          BlocProvider(create: (context) => HomeCubit()),
+        ],
         child: MaterialApp(
-          home: Login(),
+          home: Tasks(),
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
             appBarTheme: const AppBarTheme(
