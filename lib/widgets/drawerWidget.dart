@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todo_fir/Modules/addTask/addTask.dart';
+import 'package:todo_fir/Modules/allUsers/allUser.dart';
 
 import '../Shared/Components/component.dart';
 
@@ -39,7 +40,7 @@ class DrawerWidget extends StatelessWidget {
         _listTiles(
             label: 'Registered workes',
             fct: () {
-              // _navigateToAllWorkerScreen(context);
+              _navigateToAllUsersScreen(context);
             },
             icon: Icons.workspaces_outline),
         _listTiles(
@@ -75,14 +76,15 @@ class DrawerWidget extends StatelessWidget {
   //   );
   // }
 
-  // void _navigateToAllWorkerScreen(context) {
-  //   Navigator.pushReplacement(
-  //     context,
-  //     MaterialPageRoute(
-  //       builder: (context) => AllWorkersScreen(),
-  //     ),
-  //   );
-  // }
+  void _navigateToAllUsersScreen(context) {
+    // Navigator.pushReplacement(
+    //   context,
+    //   MaterialPageRoute(
+    //     builder: (context) => AllUsers(),
+    //   ),
+    // );
+    navigatAndReturn(context: context, page: AllUsers());
+  }
 
   void _navigateToAddTaskScreen(context) {
     // Navigator.pushReplacement(

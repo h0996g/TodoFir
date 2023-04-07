@@ -5,11 +5,11 @@ import 'cubit/register_cubit.dart';
 
 class Register extends StatelessWidget {
   Register({Key? key}) : super(key: key);
-  var emailController = TextEditingController();
-  var nameController = TextEditingController();
-  var passwordController = TextEditingController();
-  var phoneController = TextEditingController();
-  var formKey = GlobalKey<FormState>();
+  final emailController = TextEditingController();
+  final nameController = TextEditingController();
+  final passwordController = TextEditingController();
+  final phoneController = TextEditingController();
+  final formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {

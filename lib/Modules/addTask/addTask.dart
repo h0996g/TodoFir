@@ -94,7 +94,7 @@ class AddTask extends StatelessWidget {
                                 lastDate: DateTime(2400))
                             .then((value) {
                           HomeCubit.get(context).changeDeadlineTask(value!);
-                        });
+                        }).catchError((e) {});
                       },
                       controller: HomeCubit.get(context).deadlineController,
                       textInputAction: TextInputAction.done,
