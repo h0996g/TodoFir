@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 Widget defaultForm(
         {required TextEditingController controller,
@@ -57,6 +58,9 @@ Widget defaultSubmit2({
     Container(
       width: width,
       height: 50.0,
+      decoration: BoxDecoration(
+        color: background,
+      ),
       child: MaterialButton(
         onPressed: onPressed,
         child: Text(
@@ -66,39 +70,36 @@ Widget defaultSubmit2({
           ),
         ),
       ),
-      decoration: BoxDecoration(
-        color: background,
-      ),
     );
 
-// void showToast({required String msg, required ToastStates state}) =>
-//     Fluttertoast.showToast(
-//         msg: msg,
-//         toastLength: Toast.LENGTH_SHORT,
-//         gravity: ToastGravity.BOTTOM,
-//         timeInSecForIosWeb: 1,
-//         backgroundColor: choseToastColor(state),
-//         textColor: Colors.white,
-//         fontSize: 16.0);
+void showToast({required String msg, required ToastStates state}) =>
+    Fluttertoast.showToast(
+        msg: msg,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: choseToastColor(state),
+        textColor: Colors.white,
+        fontSize: 16.0);
 
-// enum ToastStates { success, error, warning }
+enum ToastStates { success, error, warning }
 
-// Color choseToastColor(ToastStates state) {
-//   Color color;
-//   switch (state) {
-//     case ToastStates.success:
-//       color = Colors.green;
-//       break;
+Color choseToastColor(ToastStates state) {
+  Color color;
+  switch (state) {
+    case ToastStates.success:
+      color = Colors.green;
+      break;
 
-//     case ToastStates.error:
-//       color = Colors.red;
-//       break;
-//     case ToastStates.warning:
-//       color = Colors.amber;
-//       break;
-//   }
-//   return color;
-// }
+    case ToastStates.error:
+      color = Colors.red;
+      break;
+    case ToastStates.warning:
+      color = Colors.amber;
+      break;
+  }
+  return color;
+}
 
 void navigatAndReturn({required context, required page}) =>
     Navigator.push(context, MaterialPageRoute(builder: (context) => page));

@@ -8,13 +8,28 @@ import 'package:todo_fir/Modules/task/tasks.dart';
 import 'Modules/Auth/login/cubit/login_cubit.dart';
 import 'Modules/Auth/login/login.dart';
 import 'Modules/Auth/register/cubit/register_cubit.dart';
+import 'Shared/Components/constante.dart';
+import 'Shared/helper/chashHelper.dart';
 
-void main() {
-  runApp(const MyApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await CachHelper.init();
+  Widget startWidget;
+  UID = CachHelper.getData(key: 'uid') ?? '';
+  if (UID != '') {
+    startWidget = Tasks();
+  } else {
+    startWidget = Login();
+  }
+  runApp(MyApp(
+    startwidget: startWidget,
+  ));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final Widget startwidget;
+
+  const MyApp({super.key, required this.startwidget});
 
   // This widget is the root of your application.
   @override
@@ -26,7 +41,7 @@ class MyApp extends StatelessWidget {
           BlocProvider(create: (context) => HomeCubit()),
         ],
         child: MaterialApp(
-          home: Tasks(),
+          home: startwidget,
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
             appBarTheme: const AppBarTheme(

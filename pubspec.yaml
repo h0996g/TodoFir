@@ -38,6 +38,8 @@ dependencies:
   flutter_bloc: ^8.0.1
   bloc: ^8.0.3
   cached_network_image: ^3.2.3
+  shared_preferences: ^2.0.20
+  fluttertoast: ^8.2.1
 
 dev_dependencies:
   flutter_test:

@@ -96,9 +96,6 @@ class Register extends StatelessWidget {
                         height: 20,
                       ),
                       defaultForm(
-                          // onFieldSubmitted: (value) {
-                          //   if (formKey.currentState!.validate()) {}
-                          // },
                           suffixIcon: IconButton(
                               onPressed: () {
                                 _RegisterCubit.showPassword();
@@ -169,9 +166,6 @@ void showDepartementDialog(context, size) {
                       print(
                           'taskCategoryList[index] ${departementList[index]}');
                       RegisterCubit.get(context).changeDepartementTask(index);
-                      // setState(() {
-                      //   taksCategory = Constants.taskCategoryList[index];
-                      // });
                       Navigator.pop(context);
                     },
                     child: Row(
