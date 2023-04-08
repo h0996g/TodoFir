@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_fir/Modules/cubit/home_cubit.dart';
+import 'package:todo_fir/Modules/taskDetails/taskDetails.dart';
 import 'package:todo_fir/Shared/Components/component.dart';
 
 import '../../Shared/Components/constante.dart';
@@ -42,6 +43,7 @@ class Tasks extends StatelessWidget {
             canreturn: false,
           ),
           body: ListView.builder(
+              physics: const BouncingScrollPhysics(),
               itemBuilder: (context, index) => defaultTask(context),
               itemCount: 10),
         );
@@ -65,6 +67,7 @@ Widget defaultTask(context) => Card(
           //     ),
           //   ),
           // );
+          navigatAndReturn(context: context, page: TaskDetails());
         },
         onLongPress: () {
           showDialog(

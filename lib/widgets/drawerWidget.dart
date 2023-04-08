@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:todo_fir/Modules/addTask/addTask.dart';
 import 'package:todo_fir/Modules/allUsers/allUser.dart';
 import 'package:todo_fir/Modules/profile/profile.dart';
+import 'package:todo_fir/Modules/task/tasks.dart';
 
 import '../Shared/Components/component.dart';
 
@@ -29,7 +30,7 @@ class DrawerWidget extends StatelessWidget {
         _listTiles(
             label: 'All tasks',
             fct: () {
-              // _navigateToTaskScreen(context);
+              _navigateToTaskScreen(context);
             },
             icon: Icons.task_outlined),
         _listTiles(
@@ -86,14 +87,15 @@ class DrawerWidget extends StatelessWidget {
     navigatAndReturn(context: context, page: AddTask());
   }
 
-  // void _navigateToTaskScreen(context) {
-  //   Navigator.pushReplacement(
-  //     context,
-  //     MaterialPageRoute(
-  //       builder: (context) => TasksScreen(),
-  //     ),
-  //   );
-  // }
+  void _navigateToTaskScreen(context) {
+    // Navigator.pushReplacement(
+    //   context,
+    //   MaterialPageRoute(
+    //     builder: (context) => TasksScreen(),
+    //   ),
+    // );
+    navigatAndFinish(context: context, page: Tasks());
+  }
 
   void _logout(context) {
     // final FirebaseAuth _auth = FirebaseAuth.instance;

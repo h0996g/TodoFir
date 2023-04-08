@@ -98,6 +98,7 @@ class Profile extends StatelessWidget {
                 height: 40,
               ),
               defaultSubmit2(
+                background: Colors.grey,
                 text: 'Logout',
               )
             ],

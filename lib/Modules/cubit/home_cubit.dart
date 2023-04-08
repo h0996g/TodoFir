@@ -1,4 +1,3 @@
-import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -9,7 +8,10 @@ part 'home_state.dart';
 class HomeCubit extends Cubit<HomeState> {
   HomeCubit() : super(HomeInitial());
   static HomeCubit get(context) => BlocProvider.of(context);
+  bool isDone = false;
+  bool iswriteComment = false;
   int indexcategory = 1;
+
   final categoryController = TextEditingController(text: taskCategoryList[0]);
 
   final deadlineController = TextEditingController(
@@ -28,5 +30,15 @@ class HomeCubit extends Cubit<HomeState> {
     this.date = date;
     deadlineController.text = "${date.day}/${date.month}/${date.year}";
     emit(ChangeDeadlineCategoryStateGood());
+  }
+
+  void changeStateDone(bool state) {
+    isDone = state;
+    emit(ChangeStatDoneStateGood());
+  }
+
+  void writeComment(bool state) {
+    iswriteComment = state;
+    emit(ChangeAnimatCommentStateGood());
   }
 }
