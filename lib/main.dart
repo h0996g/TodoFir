@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:todo_fir/Modules/Auth/register/register.dart';
 import 'package:todo_fir/Modules/cubit/home_cubit.dart';
 import 'package:todo_fir/Modules/task/tasks.dart';
 
@@ -9,9 +8,12 @@ import 'Modules/Auth/login/cubit/login_cubit.dart';
 import 'Modules/Auth/login/login.dart';
 import 'Modules/Auth/register/cubit/register_cubit.dart';
 import 'Shared/Components/constante.dart';
+import 'Shared/blocObserver/blocObserver.dart';
 import 'Shared/helper/chashHelper.dart';
 
 Future<void> main() async {
+  Bloc.observer = MyBlocObserver();
+
   WidgetsFlutterBinding.ensureInitialized();
   await CachHelper.init();
   Widget startWidget;
