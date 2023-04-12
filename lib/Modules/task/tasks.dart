@@ -1,3 +1,4 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_fir/Modules/cubit/home_cubit.dart';
@@ -13,39 +14,76 @@ class Tasks extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return BlocConsumer<HomeCubit, HomeState>(
       builder: (BuildContext context, state) {
-        return Scaffold(
-          drawer: const DrawerWidget(),
-          appBar: defaultAppBar(
-            actions: [
-              IconButton(
-                onPressed: () {
-                  showTaskCategoryDialog(context, size);
-                },
-                icon: const Icon(
-                  Icons.filter_list_outlined,
-                  color: Colors.black,
-                ),
-              ),
-            ],
-            leading: Builder(
-              builder: (BuildContext context) {
-                return IconButton(
+        return ConditionalBuilder(
+          builder: (BuildContext context) {
+            return Scaffold(
+              drawer: const DrawerWidget(),
+              appBar: defaultAppBar(
+                actions: [
+                  IconButton(
                     onPressed: () {
-                      Scaffold.of(context).openDrawer();
+                      showTaskCategoryDialog(context, size);
                     },
                     icon: const Icon(
-                      Icons.menu,
+                      Icons.filter_list_outlined,
                       color: Colors.black,
-                    ));
-              },
-            ),
-            title: const Text('Tasks'),
-            canreturn: false,
-          ),
-          body: ListView.builder(
-              physics: const BouncingScrollPhysics(),
-              itemBuilder: (context, index) => defaultTask(context),
-              itemCount: 10),
+                    ),
+                  ),
+                ],
+                leading: Builder(
+                  builder: (BuildContext context) {
+                    return IconButton(
+                        onPressed: () {
+                          Scaffold.of(context).openDrawer();
+                        },
+                        icon: const Icon(
+                          Icons.menu,
+                          color: Colors.black,
+                        ));
+                  },
+                ),
+                title: const Text('Tasks'),
+                canreturn: false,
+              ),
+              body: ListView.builder(
+                  physics: const BouncingScrollPhysics(),
+                  itemBuilder: (context, index) => defaultTask(context),
+                  itemCount: 10),
+            );
+          },
+          condition: HomeCubit.get(context).userModel != null &&
+              state is! LodinGetUserDataState,
+          fallback: (BuildContext context) {
+            return Scaffold(
+              // drawer: Drawer(),
+              appBar: defaultAppBar(
+                actions: [
+                  IconButton(
+                    onPressed: () {
+                      showTaskCategoryDialog(context, size);
+                    },
+                    icon: const Icon(
+                      Icons.filter_list_outlined,
+                      color: Colors.black,
+                    ),
+                  ),
+                ],
+                leading: Builder(
+                  builder: (BuildContext context) {
+                    return IconButton(
+                        onPressed: () {},
+                        icon: const Icon(
+                          Icons.menu,
+                          color: Colors.black,
+                        ));
+                  },
+                ),
+                title: const Text('Tasks'),
+                canreturn: false,
+              ),
+              body: const Center(child: CircularProgressIndicator()),
+            );
+          },
         );
       },
       listener: (BuildContext context, Object? state) {},
