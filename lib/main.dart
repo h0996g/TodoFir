@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,9 +14,10 @@ import 'Shared/helper/chashHelper.dart';
 
 Future<void> main() async {
   Bloc.observer = MyBlocObserver();
-
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   await CachHelper.init();
+
   Widget startWidget;
   UID = CachHelper.getData(key: 'uid') ?? '';
   if (UID != '') {

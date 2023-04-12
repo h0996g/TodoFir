@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:todo_fir/Modules/Auth/login/login.dart';
 import 'package:todo_fir/Modules/addTask/addTask.dart';
 import 'package:todo_fir/Modules/allUsers/allUser.dart';
 import 'package:todo_fir/Modules/profile/profile.dart';
 import 'package:todo_fir/Modules/task/tasks.dart';
 
 import '../Shared/Components/component.dart';
+import '../Shared/helper/chashHelper.dart';
 
 class DrawerWidget extends StatelessWidget {
   const DrawerWidget({super.key});
@@ -127,7 +129,7 @@ class DrawerWidget extends StatelessWidget {
             actions: [
               TextButton(
                 onPressed: () {
-                  Navigator.canPop(context) ? Navigator.pop(context) : null;
+                  Navigator.pop(context);
                 },
                 child: const Text('Cancel'),
               ),
@@ -140,6 +142,10 @@ class DrawerWidget extends StatelessWidget {
                     //     builder: (ctx) => UserState(),
                     //   ),
                     // );
+                    CachHelper.removdata(key: "uid").then((value) {
+                      // _homeCubit.resetWhenLogout();
+                      navigatAndFinish(context: context, page: Login());
+                    });
                   },
                   child: const Text(
                     'OK',

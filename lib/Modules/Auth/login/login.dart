@@ -1,7 +1,11 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_fir/Modules/forgetPassword/forgetPassword.dart';
+import 'package:todo_fir/Modules/task/tasks.dart';
 import 'package:todo_fir/Shared/Components/component.dart';
+import '../../../Shared/Components/constante.dart';
+import '../../../Shared/helper/chashHelper.dart';
 import '../register/register.dart';
 import 'cubit/login_cubit.dart';
 
@@ -9,7 +13,7 @@ class Login extends StatelessWidget {
   Login({Key? key}) : super(key: key);
 
   final emailController = TextEditingController();
-  final passController = TextEditingController();
+  final passwordController = TextEditingController();
   final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -62,7 +66,7 @@ class Login extends StatelessWidget {
                             icon: _loginCubit.isvisibility
                                 ? const Icon(Icons.visibility_off)
                                 : const Icon(Icons.visibility)),
-                        controller: passController,
+                        controller: passwordController,
                         textInputAction: TextInputAction.done,
                         prefixIcon: const Icon(Icons.password),
                         obscureText: !_loginCubit.isvisibility,
@@ -84,11 +88,24 @@ class Login extends StatelessWidget {
                             },
                             child: const Text('forget password ?')),
                         const Spacer(),
-                        FloatingActionButton(
-                          onPressed: () {
-                            if (formKey.currentState!.validate()) {}
+                        ConditionalBuilder(
+                          builder: (BuildContext context) {
+                            return defaultSubmit1(
+                                formKey: formKey,
+                                onPressed: () {
+                                  if (formKey.currentState!.validate()) {
+                                    _loginCubit.login(
+                                        email: emailController.text,
+                                        password: passwordController.text);
+                                  }
+                                });
                           },
-                          child: const Icon(Icons.arrow_forward_ios),
+                          condition: state is! LodinLoginState,
+                          fallback: (BuildContext context) {
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          },
                         )
                       ],
                     ),
@@ -107,7 +124,31 @@ class Login extends StatelessWidget {
           ),
         );
       },
-      listener: (BuildContext context, Object? state) {},
+      listener: (BuildContext context, Object? state) {
+        if (state is SignInWithEmailAndPasswordGood) {
+          // await Fluttertoast.showToast(
+          //     msg: "Success Login",
+          //     toastLength: Toast.LENGTH_SHORT,
+          //     gravity: ToastGravity.BOTTOM,
+          //     timeInSecForIosWeb: 1,
+          //     backgroundColor: Colors.green,
+          //     textColor: Colors.white,
+          //     fontSize: 16.0);
+          showToast(msg: "Login Successful", state: ToastStates.success);
+          // sleep(const Duration(seconds: 1));
+          CachHelper.putcache(key: "uid", value: state.uid).then((value) {
+            print(value.toString());
+            UID = CachHelper.getData(key: 'uid');
+
+            // HomeCubit.get(context).getUserData();
+            // HomeCubit.get(context).getPosts();
+
+            navigatAndFinish(context: context, page: Tasks());
+          });
+        } else if (state is SignInWithEmailAndPasswordBad) {
+          showToast(msg: state.error, state: ToastStates.error);
+        }
+      },
     );
   }
 }

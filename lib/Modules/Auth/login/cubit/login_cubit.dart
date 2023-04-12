@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/animation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
@@ -13,5 +14,16 @@ class LoginCubit extends Cubit<LoginState> {
   void showPassword() {
     isvisibility = !isvisibility;
     emit(ShowPasswordState());
+  }
+
+  void login({required String email, required String password}) {
+    emit(LodinLoginState());
+    FirebaseAuth.instance
+        .signInWithEmailAndPassword(email: email, password: password)
+        .then((value) {
+      emit(SignInWithEmailAndPasswordGood(value.user!.uid));
+    }).catchError((e) {
+      emit(SignInWithEmailAndPasswordBad(e.toString()));
+    });
   }
 }

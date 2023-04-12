@@ -1,7 +1,11 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todo_fir/Modules/cubit/home_cubit.dart';
+import 'package:todo_fir/Modules/task/tasks.dart';
 import '../../../Shared/Components/component.dart';
 import '../../../Shared/Components/constante.dart';
+import '../../../Shared/helper/chashHelper.dart';
 import 'cubit/register_cubit.dart';
 
 class Register extends StatelessWidget {
@@ -132,7 +136,28 @@ class Register extends StatelessWidget {
                             },
                           ),
                           const Spacer(),
-                          defaultSubmit1(formKey),
+                          ConditionalBuilder(
+                            builder: (BuildContext context) {
+                              return defaultSubmit1(
+                                  formKey: formKey,
+                                  onPressed: () {
+                                    if (formKey.currentState!.validate()) {
+                                      RegisterCubit.get(context).register(
+                                        email: emailController.text,
+                                        name: nameController.text,
+                                        password: passwordController.text,
+                                        phone: phoneController.text,
+                                      );
+                                    }
+                                  });
+                            },
+                            condition: state is! LodinRegisterState,
+                            fallback: (BuildContext context) {
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            },
+                          ),
                         ],
                       )
                     ]),
@@ -141,7 +166,18 @@ class Register extends StatelessWidget {
           ),
         );
       },
-      listener: (BuildContext context, Object? state) {},
+      listener: (BuildContext context, Object? state) {
+        if (state is CreateUserGood) {
+          showToast(msg: "Succesffuly", state: ToastStates.success);
+          // sleep(const Duration(seconds: 1));
+          CachHelper.putcache(key: 'uid', value: state.uid).then((value) {
+            UID = CachHelper.getData(key: 'uid');
+            navigatAndFinish(context: context, page: Tasks());
+          });
+        } else if (state is CreateUserWithEmailAndPasswordBad) {
+          showToast(msg: state.error, state: ToastStates.error);
+        }
+      },
     );
   }
 }

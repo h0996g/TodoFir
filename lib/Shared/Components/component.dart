@@ -41,10 +41,15 @@ Widget defaultForm(
         return null;
       },
     );
-Widget defaultSubmit1(formKey) => FloatingActionButton(
-      onPressed: () {
-        if (formKey.currentState!.validate()) {}
-      },
+Widget defaultSubmit1({
+  formKey,
+  Function()? onPressed,
+}) =>
+    FloatingActionButton(
+      // onPressed: () {
+      //   if (formKey.currentState!.validate()) {}
+      // },
+      onPressed: onPressed,
       child: const Icon(Icons.arrow_forward_ios),
     );
 Widget defaultSubmit2({
